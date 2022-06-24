@@ -1,0 +1,44 @@
+%% LEX
+%tokens = ["NUM", "PAL"] ##tokens 
+%literals = ["[" , "]" , ","] ##literals
+%ignore = " \n\t\r"
+%NUM = r'\d+'
+%PAL = r'[a-zA-Z]+'
+
+%% FUNCTIONS
+# ERRO 
+.               error(f"Illegal character {t.value[0]}", t.lexer.skip(1) )
+
+%% YACC
+
+%% ERS
+lista : "'[' conteudo ']'" { pass }
+conteudo : "  " { pass }
+conteudo : "elementos" { pass }
+elementos : "elem" { pass }
+elementos : "elem ',' elementos" { pass }
+elem : "NUM" { t.parser.contador_num += 1 }
+elem : "PAL" { t.parser.contador_pal += 1 }
+elem : "lista" { pass }
+
+%% PYTHON 
+
+# ERRO
+def p_error(t):
+    print("Syntax error!")
+
+%parser=yacc()
+
+# counter of NUMS
+%parser.contador_num = 0
+
+# counter of PALS
+%parser.contador_pal = 0
+
+%% PYTHON
+
+parser.parse("[1,A,2]")
+print("Número de NUMs:", parser.contador_num)
+print("Número de PALs:", parser.contador_pal)
+
+%%

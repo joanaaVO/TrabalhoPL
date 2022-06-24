@@ -1,0 +1,40 @@
+P0  : Programa -> lex yacc
+
+P1  : lex -> 
+P2  :      | LEX vars FUNCTIONS funcs
+
+P3  : yacc -> 
+P4  :       | YACC vars ERS ers PYTHON python vars PYTHON python END
+
+P5  : vars -> 
+P6  :       | vars comment var vcomment
+
+P7  : var -> PERC ID '=' STRING
+P8  :      | PERC ID '=' LIST 
+P9  :      | PERC ID '=' EMPTYLIST 
+P10 :      | PERC ID '=' YACC
+P11 :      | PERC ID '=' NUM
+P12 :      | PERC ID '=' REGEX
+
+P13 : funcs -> 
+P14 :        | funcs comment func
+
+P16 : func -> ER RETURN PAL PAL
+P17 :       | PONTO ERROR PAL STRING PAL
+P18 :       | PONTO ERROR STRING PAL
+P19 :       | END
+
+P20 : python -> 
+P21 :         | python TEXT
+
+P22 : ers -> 
+P23 :      | ers comment er
+
+P24 : er -> EXP STRING EXP
+
+P25 : vcomments ->
+P26 :            | VCOMMENT
+
+P27 : comments ->
+P28 :           | COMMENT
+
